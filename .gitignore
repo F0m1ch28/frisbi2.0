@@ -1,0 +1,32 @@
+# Игнорирование файлов окружения
+.env
+
+# Папки для зависимостей
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+
+# Игнорирование файлов и папок, связанных с IDE
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Логи
+*.log
+
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Игнорирование папок сборки
+/build/
+dist/
+
+# Файлы кэша
+.cache/
+*.egg-info/
