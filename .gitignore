@@ -10,9 +10,7 @@ backend/.env
 
 instance/
 *.db
-*.sqlite3
 *.pkl
-
 node_modules/
 build/
 dist/
