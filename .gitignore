@@ -19,7 +19,3 @@ dist/
 *.log
 
 .vscode/
-.idea/
-*.sublime-workspace
-*.sublime-project
-.DS_Store
