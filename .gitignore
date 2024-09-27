@@ -6,6 +6,7 @@ env/
 .venv/
 *.env
 backend/venv/
+backend/.env
 
 instance/
 *.db
