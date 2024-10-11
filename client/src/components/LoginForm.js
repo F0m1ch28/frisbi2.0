@@ -1,25 +1,29 @@
-import React, { useState } from 'react'
-import AuthService from '../services/AuthService'
+import React, { useState } from 'react';
+import { useStore } from '../store/store';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const { store } = useStore();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError('')
+    setError('');
     try {
-      const response = await AuthService.login(email, password)
-      localStorage.setItem('token', response.token)
-      alert('Login successful')
+      await store.login(email, password);
+      navigate('/'); // Перенаправление на домашнюю страницу
     } catch (error) {
-      setError('Login failed: ' + error.response.data.message || error.message)
+      setError('Ошибка входа: ' + (error.response?.data?.message || error.message));
     }
-  }
+  };
 
   return (
     <form onSubmit={handleLogin}>
+      {/* Ваши поля формы */}
+      {error && <div className="error">{error}</div>}
       <input
         type="email"
         placeholder="Email"
@@ -28,14 +32,13 @@ const LoginForm = () => {
       />
       <input
         type="password"
-        placeholder="Password"
+        placeholder="Пароль"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button type="submit">Login</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="submit">Войти</button>
     </form>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

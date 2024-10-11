@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { StoreContext } from '../store/store'
+import { useNavigate } from 'react-router-dom'
 
 const RegisterForm = () => {
   const { store } = useContext(StoreContext)
+  const navigate = useNavigate()
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -19,6 +21,7 @@ const RegisterForm = () => {
       await store.registration(username, email, password)
       console.log('Регистрация прошла успешно')
       setError('')
+      navigate('/')
     } catch (error) {
       setError('Ошибка регистрации: ' + error.message)
     }
