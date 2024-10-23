@@ -1,4 +1,4 @@
-import $api from '../http/index';
+import $api from '../http/index'
 
 class AuthService {
   static async registration(username, email, password) {
@@ -6,16 +6,30 @@ class AuthService {
       username,
       email,
       password,
-    });
-    return response.data;
+    })
+    return response.data
   }
 
   static async login(email, password) {
-    const response = await $api.post('/api/auth/login', {
+    try {
+      const response = await $api.post('/api/auth/login', {
+        email,
+        password,
+      })
+      return response.data
+    } catch (error) {
+      console.error('Ошибка при логине:', error.response?.data?.message || error.message)
+      throw error
+    }
+  }
+
+  static async verifyEmail(email, emailVerificationCode, password) {
+    const response = await $api.post('/api/auth/verify-email', {
       email,
+      email_verification_code: emailVerificationCode,
       password,
-    });
-    return response.data;
+    })
+    return response.data
   }
 
   static async logout() {
@@ -27,9 +41,9 @@ class AuthService {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       }
-    );
-    return response.data;
+    )
+    return response.data
   }
 }
 
-export default AuthService;
+export default AuthService

@@ -1,16 +1,16 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import Chat from './Chat';
-import { useStore } from '../store/store';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import Chat from './Chat'
+import { useStore } from '../store/store'
 
 const HomePage = () => {
-  const { store } = useStore();
-  const navigate = useNavigate();
+  const { store } = useStore()
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
-    await store.logout();
-    navigate('/login');
-  };
+    await store.logout()
+    navigate('/login')
+  }
 
   return (
     <div className="container">
@@ -22,7 +22,7 @@ const HomePage = () => {
         <Chat />
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage

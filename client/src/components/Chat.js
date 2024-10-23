@@ -1,67 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-import { useStore } from '../store/store';
+import React, { useEffect, useState } from 'react'
+import io from 'socket.io-client'
+import { useStore } from '../store/store'
 
 const Chat = () => {
   const { store } = useStore();
-  const [messages, setMessages] = useState([]);
-  const [onlineUsers, setOnlineUsers] = useState([]);
-  const [inputValue, setInputValue] = useState('');
-  const [socket, setSocket] = useState(null);
+  const [messages, setMessages] = useState([])
+  const [onlineUsers, setOnlineUsers] = useState([])
+  const [inputValue, setInputValue] = useState('')
+  const [socket, setSocket] = useState(null)
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const newSocket = io('http://localhost:5000', {
       auth: { token },
       transports: ['websocket'],
-    });
-    setSocket(newSocket);
+    })
+    setSocket(newSocket)
 
     newSocket.on('connect', () => {
-      console.log('Установлено соединение с сервером');
-    });
+      console.log('Установлено соединение с сервером')
+    })
 
     newSocket.on('message_history', (messages) => {
-      setMessages(messages);
-    });
+      setMessages(messages)
+    })
 
     newSocket.on('message', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
+      setMessages((prevMessages) => [...prevMessages, message])
+    })
 
     newSocket.on('online_users', (users) => {
-      setOnlineUsers(users);
-    });
+      setOnlineUsers(users)
+    })
 
     newSocket.on('disconnect', (reason) => {
       if (reason === 'io server disconnect') {
-        console.error('Сервер разорвал соединение');
+        console.error('Сервер разорвал соединение')
       } else {
-        console.log('Соединение разорвано:', reason);
+        console.log('Соединение разорвано:', reason)
       }
-    });
+    })
 
     newSocket.on('connect_error', (err) => {
-      console.error('Ошибка подключения:', err);
-    });
+      console.error('Ошибка подключения:', err)
+    })
 
     return () => {
-      newSocket.disconnect();
-    };
-  }, []);
+      newSocket.disconnect()
+    }
+  }, [])
 
   const sendMessage = () => {
     if (inputValue.trim() !== '' && socket) {
-      socket.emit('message', { content: inputValue });
-      setInputValue('');
+      socket.emit('message', { content: inputValue })
+      setInputValue('')
     }
-  };
+  }
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      sendMessage();
+      sendMessage()
     }
-  };
+  }
 
   return (
     <div className="chat-container">
@@ -98,7 +98,7 @@ const Chat = () => {
         <button onClick={sendMessage}>Отправить</button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Chat;
+export default Chat

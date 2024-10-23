@@ -19,8 +19,8 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def set_email_verification_code(self) -> None:
-        self.email_verification_code = randint(100000, 999999)
+    def set_email_verification_code(self, verification_code: int) -> None:
+        self.email_verification_code = verification_code
 
     def check_email_verification_code(self, code: int) -> bool:
         return self.email_verification_code == code

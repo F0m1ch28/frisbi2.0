@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
-import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm';
-import HomePage from './components/HomePage';
-import { useStore } from './store/store';
+import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom'
+import LoginForm from './components/LoginForm'
+import RegisterForm from './components/RegisterForm'
+import HomePage from './components/HomePage'
+import { useStore } from './store/store'
 
 const App = observer(() => {
-  const { store } = useStore();
+  const { store } = useStore()
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
-      store.checkAuth();
+      store.checkAuth()
     }
-  }, [store]);
+  }, [store])
 
   if (store.isLoading) {
-    return <div>Загрузка...</div>;
+    return <div>Загрузка...</div>
   }
 
   return (
@@ -58,7 +58,7 @@ const App = observer(() => {
         />
       </Routes>
     </Router>
-  );
-});
+  )
+})
 
-export default App;
+export default App

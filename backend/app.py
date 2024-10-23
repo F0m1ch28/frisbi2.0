@@ -17,7 +17,9 @@ CORS(app, supports_credentials=True, resources={
     r"/*": {
         "origins": "http://localhost:3000",
         "allow_headers": ["Content-Type", "Authorization"],
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+        "expose_headers": ["Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "credentials": True
     }
 })
 
